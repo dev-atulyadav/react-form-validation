@@ -7,7 +7,7 @@ const CountryState = ({ children }) => {
   useEffect(() => {
     axios
       .get(
-        "https://gist.githubusercontent.com/almost/7748738/raw/575f851d945e2a9e6859fb2308e95a3697bea115/countries.json"
+        "https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json"
       )
       .then((response) => {
         // console.log(response.data);

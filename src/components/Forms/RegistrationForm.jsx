@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FormContext } from "../../contexts/FormState";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FiInfo } from "react-icons/fi";
+import Country from "./Country";
 
 const RegistrationForm = () => {
   const { inputs, isVisible, handlePasswordVisibility } =
@@ -28,7 +29,7 @@ const RegistrationForm = () => {
                 {input.errorMessage}
               </p> */}
             </label>
-            <input
+          { input.name!=="country" ?<input
               className="px-3 py-2 rounded-lg shadow-lg border border-transparent focus:border-black outline-none"
               type={
                 input.type == "password"
@@ -40,7 +41,8 @@ const RegistrationForm = () => {
               id={input.name}
               placeholder={input.placeholder}
               required
-            />
+            />:
+            <Country/>}
             {input.isPasswordInput !== undefined && (
               <button
                 className="absolute right-2 bottom-3"
