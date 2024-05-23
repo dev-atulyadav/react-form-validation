@@ -1,96 +1,42 @@
-import React, { createContext, useContext, useState } from "react";
-import { CountryContext } from "./CountryState";
+import React, { createContext, useState } from "react";
 
 export const FormContext = createContext();
 const FormState = ({ children }) => {
-  const {countries} = useContext(CountryContext);
-  console.log(countries);
   const [isVisible, setIsVisible] = useState(false);
   const handlePasswordVisibility = (e) => {
     e.preventDefault();
     setIsVisible(!isVisible);
   };
-  console.log(isVisible);
-  const [inputs] = useState([
-    {
-      id: 1,
-      name: "firstname",
-      type: "text",
-      placeholder: "First name",
-      label: "First name",
-      errorMessage: "Please enter your first name",
-    },
-    {
-      id: 2,
-      name: "lastname",
-      type: "text",
-      placeholder: "Last name",
-      label: "Last name",
-      errorMessage: "Please enter your last last name",
-    },
-    {
-      id: 3,
-      name: "username",
-      type: "text",
-      placeholder: "Username",
-      label: "Username",
-      errorMessage:
-        "Username between 3-16 characters with no spaces or special characters",
-      pattern: "^[a-zA-Z0-9]{3,16}$",
-    },
-    {
-      id: 4,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      label: "Password",
-      errorMessage: "Please enter your password",
-      isPasswordInput: true,
-    },
-    {
-      id: 5,
-      name: "phone number",
-      type: "tel",
-      placeholder: "Phone number",
-      label: "Phone number",
-      errorMessage: "Please enter your phone number",
-    },
-    {
-      id: 6,
-      name: "country",
-      type: "text",
-      placeholder: "Country",
-      label: "Country",
-      errorMessage: "Please enter your country name",
-    },
-    {
-      id: 7,
-      name: "city",
-      type: "text",
-      placeholder: "City",
-      label: "City",
-      errorMessage: "Please enter your city",
-    },
-    {
-      id: 8,
-      name: "pan number",
-      type: "text",
-      placeholder: "Pan card number",
-      label: "Pan number",
-      errorMessage: "Please enter your valid pan number",
-    },
-    {
-      id: 9,
-      name: "Aadhar number",
-      type: "text",
-      placeholder: "Aadhar card number",
-      label: "Aadhar number",
-      errorMessage: "Please enter your Aadhar card number",
-    },
-  ]);
+  const [count, setCount] = useState(0);
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    userName: "",
+    password: "",
+    phoneNumber: "",
+    country: "",
+    city: "",
+    panNumber: "",
+    aadharNumber: "",
+  });
+  let name, value;
+  const handleInput = (e) => {
+    if (e.target != undefined) {
+      name = e.target.name;
+      value = e.target.value;
+      setUser((prevFormData) => ({ ...prevFormData, [name]: value }));
+    } else if(e.country!=undefined) {
+      setUser((prevFormData) => ({ ...prevFormData, ["country"]: e.country }));
+    }
+     else if(e.city!=undefined) {
+      setUser((prevFormData) => ({ ...prevFormData, ["city"]: e.city }));
+    }
+  };
+
   return (
     <FormContext.Provider
-      value={{ inputs, isVisible, handlePasswordVisibility }}
+      value={{ handleInput, user, isVisible, handlePasswordVisibility,count,setCount }}
     >
       {children}
     </FormContext.Provider>
